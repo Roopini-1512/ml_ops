@@ -41,7 +41,7 @@ view: onlineskewinfotable {
   measure: skew1 {
     type: sum
     sql: ${TABLE}.skew;;
-    html: {{rendered_value}} <br> features {{features._rendered_value}};;
+    html: {{rendered_value}} <br> feature: {{features._rendered_value}};;
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
