@@ -48,3 +48,7 @@ explore: tbl_final_model_performance {}
 explore: tbl_features_vif {}
 
 explore: sample_visual {}
+
+explore: onlinedriftinfotable {}
+
+explore : featureimportancetable {}
