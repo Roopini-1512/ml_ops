@@ -35,6 +35,12 @@ view: onlinedriftinfotable {
     sql: ${TABLE}.features ;;
   }
 
+  measure: drift1 {
+    type: sum
+    sql: ${TABLE}.drift;;
+    html: {{rendered_value}} <br> features {{features._rendered_value}};;
+  }
+
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
