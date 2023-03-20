@@ -46,3 +46,5 @@ explore: tbl_trained_model_output {}
 explore: tbl_final_model_performance {}
 
 explore: tbl_features_vif {}
+
+explore: sample_visual {}

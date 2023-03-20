@@ -36,7 +36,13 @@ view: productionmodeltable {
 
   dimension: metric_val {
     type: number
-    sql: ${TABLE}.metric_val ;;
+    sql: ${TABLE}.metric_val;;
+  }
+
+  measure: metric_value {
+    type: sum
+    sql: ${TABLE}.metric_val;;
+    html: {{rendered_value}} <br> version {{version._rendered_value}};;
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
