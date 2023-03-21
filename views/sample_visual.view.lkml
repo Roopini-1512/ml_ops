@@ -1,13 +1,17 @@
 view: sample_visual {
   derived_table: {
-    sql: select version,build as days,'build' as stage from
+    sql: select usecase,build as days,'build' as stage from
     `tgs-internal-saige-sandbox-001.mlops_artifacts.lifecycle-model-table`
     union all
-    select version,ready_to_prod as days,'ready to prod' as stage from
+    select usecase,ready_to_prod as days,'ready to prod' as stage from
     `tgs-internal-saige-sandbox-001.mlops_artifacts.lifecycle-model-table`
     union all
-    select version,prod as days,'prod'as stage from
+    select usecase,prod as days,'prod'as stage from
     `tgs-internal-saige-sandbox-001.mlops_artifacts.lifecycle-model-table` ;;
+  }
+  dimension: usecase {
+    type: string
+    sql: ${TABLE}.usecase ;;
   }
   dimension: version {
     type: string
@@ -20,6 +24,7 @@ view: sample_visual {
   measure: days {
     type: sum
     sql: ${TABLE}.days ;;
+    html: {{rendered_value}} <br> Days: {{days._rendered_value}};;
   }
 
   dimension: sequence {

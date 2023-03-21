@@ -1,8 +1,8 @@
-# The name of this view in Looker is "Productionmodeltable"
-view: productionmodeltable {
+# The name of this view in Looker is "Churnfeatureimportance"
+view: churnfeatureimportance {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `tgs-internal-saige-sandbox-001.mlops_artifacts.production-model-table`
+  sql_table_name: `tgs-internal-saige-sandbox-001.mlops_artifacts.churn-feature-importance`
     ;;
   # No primary key is defined for this view. In order to join this view in an Explore,
   # define primary_key: yes on a dimension that has no repeated values.
@@ -22,60 +22,39 @@ view: productionmodeltable {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.date ;;
+    sql: ${TABLE}.Date ;;
   }
 
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called "Metric Name" in Explore.
+  # This dimension will be called "Feature Importance" in Explore.
 
-  dimension: metric_name {
-    type: string
-    sql: ${TABLE}.metric_name ;;
-  }
-
-  dimension: metric_val {
+  dimension: feature_importance {
     type: number
-    sql: ${TABLE}.metric_val;;
-  }
-
-  measure: metric_value {
-    type: sum
-    sql: ${TABLE}.metric_val;;
-    html: {{rendered_value}} <br> {{date_date._rendered_value}};;
+    sql: ${TABLE}.Feature_Importance ;;
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
   # measures for this dimension, but you can also add measures of many different aggregates.
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
-  measure: total_metric_val {
+  measure: total_feature_importance {
     type: sum
-    sql: ${metric_val} ;;
+    sql: ${feature_importance} ;;
   }
 
-  measure: average_metric_val {
+  measure: average_feature_importance {
     type: average
-    sql: ${metric_val} ;;
+    sql: ${feature_importance} ;;
   }
 
-  dimension: threshold {
-    type: number
-    sql: ${TABLE}.threshold ;;
-  }
-
-  dimension: usecase {
+  dimension: feature_names {
     type: string
-    sql: ${TABLE}.usecase ;;
-  }
-
-  dimension: version {
-    type: number
-    sql: ${TABLE}.version ;;
+    sql: ${TABLE}.Feature_Names ;;
   }
 
   measure: count {
     type: count
-    drill_fields: [metric_name]
+    drill_fields: []
   }
 }

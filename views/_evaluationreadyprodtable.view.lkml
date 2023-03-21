@@ -1,8 +1,8 @@
-# The name of this view in Looker is "Productionmodeltable"
-view: productionmodeltable {
+# The name of this view in Looker is " Evaluationreadyprodtable"
+view: _evaluationreadyprodtable {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `tgs-internal-saige-sandbox-001.mlops_artifacts.production-model-table`
+  sql_table_name: `tgs-internal-saige-sandbox-001.mlops_artifacts. evaluation-ready-prod-table`
     ;;
   # No primary key is defined for this view. In order to join this view in an Explore,
   # define primary_key: yes on a dimension that has no repeated values.
@@ -36,9 +36,8 @@ view: productionmodeltable {
 
   dimension: metric_val {
     type: number
-    sql: ${TABLE}.metric_val;;
+    sql: ${TABLE}.metric_val ;;
   }
-
   measure: metric_value {
     type: sum
     sql: ${TABLE}.metric_val;;
@@ -59,6 +58,11 @@ view: productionmodeltable {
     sql: ${metric_val} ;;
   }
 
+  dimension: tag {
+    type: string
+    sql: ${TABLE}.tag ;;
+  }
+
   dimension: threshold {
     type: number
     sql: ${TABLE}.threshold ;;
@@ -67,11 +71,6 @@ view: productionmodeltable {
   dimension: usecase {
     type: string
     sql: ${TABLE}.usecase ;;
-  }
-
-  dimension: version {
-    type: number
-    sql: ${TABLE}.version ;;
   }
 
   measure: count {

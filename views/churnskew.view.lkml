@@ -1,72 +1,65 @@
-# The name of this view in Looker is "Productionmodeltable"
-view: productionmodeltable {
+# The name of this view in Looker is "Churnskew"
+view: churnskew {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `tgs-internal-saige-sandbox-001.mlops_artifacts.production-model-table`
+  sql_table_name: `tgs-internal-saige-sandbox-001.mlops_artifacts.churn-skew`
     ;;
   # No primary key is defined for this view. In order to join this view in an Explore,
   # define primary_key: yes on a dimension that has no repeated values.
 
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "Features" in Explore.
+
+  dimension: features {
+    type: string
+    sql: ${TABLE}.features ;;
+  }
+
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
-  dimension_group: date {
+  dimension_group: job_id {
     type: time
     timeframes: [
       raw,
+      time,
       date,
       week,
       month,
       quarter,
       year
     ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}.date ;;
+    sql: ${TABLE}.job_id ;;
   }
 
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called "Metric Name" in Explore.
-
-  dimension: metric_name {
-    type: string
-    sql: ${TABLE}.metric_name ;;
-  }
-
-  dimension: metric_val {
+  dimension: skew {
     type: number
-    sql: ${TABLE}.metric_val;;
+    sql: ${TABLE}.skew ;;
   }
-
-  measure: metric_value {
+  measure: skew1 {
     type: sum
-    sql: ${TABLE}.metric_val;;
-    html: {{rendered_value}} <br> {{date_date._rendered_value}};;
+    sql: ${TABLE}.skew;;
+
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
   # measures for this dimension, but you can also add measures of many different aggregates.
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
-  measure: total_metric_val {
+  measure: total_skew {
     type: sum
-    sql: ${metric_val} ;;
+    sql: ${skew} ;;
   }
 
-  measure: average_metric_val {
+  measure: average_skew {
     type: average
-    sql: ${metric_val} ;;
+    sql: ${skew} ;;
   }
 
   dimension: threshold {
     type: number
     sql: ${TABLE}.threshold ;;
-  }
-
-  dimension: usecase {
-    type: string
-    sql: ${TABLE}.usecase ;;
   }
 
   dimension: version {
@@ -76,6 +69,6 @@ view: productionmodeltable {
 
   measure: count {
     type: count
-    drill_fields: [metric_name]
+    drill_fields: []
   }
 }

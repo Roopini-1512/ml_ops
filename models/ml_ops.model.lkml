@@ -27,7 +27,7 @@ persist_with: ml_ops_default_datagroup
 
 explore: monitoringinfotable {}
 
-explore: evaluationreadyprodtable {}
+explore: _evaluationreadyprodtable {}
 
 explore: experimentationbuildtable {}
 
@@ -52,3 +52,11 @@ explore: sample_visual {}
 explore: onlinedriftinfotable {}
 
 explore : featureimportancetable {}
+
+explore: churndrift {}
+
+explore: churnfeatureimportance {}
+
+explore: churnskew {}
+
+explore: churntestaccuracy {}
