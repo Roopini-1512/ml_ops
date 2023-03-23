@@ -24,7 +24,7 @@ view: sample_visual {
   measure: days {
     type: sum
     sql: ${TABLE}.days ;;
-    html: {{rendered_value}} <br> Days: {{days._rendered_value}};;
+    html: {{rendered_value}} <br> Weeks: {{days._rendered_value}};;
   }
 
   dimension: sequence {
